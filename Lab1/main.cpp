@@ -10,7 +10,7 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-#define MAX 5000
+#define MAX 15000
 int main()
 {
     vector<vector<double>> A;
@@ -18,7 +18,6 @@ int main()
     vector<double>y;
     for (int i = 0; i < MAX; i++)
     {
-        // construct a vector of int
         vector<double> v;
         for (int j = 0; j < MAX; j++) {
             v.push_back(0);
@@ -42,6 +41,9 @@ int main()
     cout << "Elapsed time in milliseconds: "
         << chrono::duration_cast<chrono::milliseconds>(end - start).count()
         << " ms" << endl;
+    //Volver a inicilizar los valores del vector a 0
+    for (int i = 0; i < MAX; i++)
+        y[i] = 0;
     // Segunda forma
     auto start2 = chrono::steady_clock::now();
     for (int j = 0; j < MAX; j++)
