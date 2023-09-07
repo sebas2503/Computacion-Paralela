@@ -1,4 +1,8 @@
-// ParalelaLab2.1.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
+//
+//  main.cpp
+//  Laboratorio2
+//
+//  Created by Lucho on 9/7/23.
 //
 
 #include <iostream>
@@ -6,48 +10,35 @@
 #include <chrono>
 #include <stdio.h>
 using namespace std;
-
-#define R1 4
-#define C1 4
-#define R2 4
-#define C2 4
-
+#define Tam 2000
 void mulMat(vector<vector<int>> mat1, vector<vector<int>> mat2)
 {
-	vector<vector<int>> rslt(R1,vector<int>(C2));
+    vector<vector<int>> rslt(Tam,vector<int>(Tam));
     auto start = chrono::steady_clock::now();
-	for (int i = 0; i < R1; i++) {
-		for (int j = 0; j < C2; j++) {
-			rslt[i][j] = 0;
+    for (int i = 0; i < Tam; i++) {
+        for (int j = 0; j < Tam; j++) {
+            rslt[i][j] = 0;
 
-			for (int k = 0; k < R2; k++) {
-				rslt[i][j] += mat1[i][k] * mat2[k][j];
-			}
-		}
-	}
+            for (int k = 0; k < Tam; k++) {
+                rslt[i][j] += mat1[i][k] * mat2[k][j];
+            }
+        }
+    }
     auto end = chrono::steady_clock::now();
+    cout << "Multiplicacion Clasica" << endl;
     cout << "Elapsed time in nanoseconds: "
         << chrono::duration_cast<chrono::nanoseconds>(end - start).count()
         << " ns" << endl;
 
-    cout << "Multiplicacion Clasica" << endl;
-    for (int i = 0; i < R1; i++)
-    {
-        for (int j = 0; j < C1; j++)
-        {
-            cout << rslt[i][j] << "\t";
-        }
-        cout << endl;
-    }
 }
 void multSeisBloques(vector<vector<int>> mat1, vector<vector<int>> mat2)
 {
-    vector<vector<int>>rslt(R1, vector<int>(C2));
+    vector<vector<int>>rslt(Tam, vector<int>(Tam));
     int ii, jj, kk, i, j, k, n, B;
-    B = R1/2;
-    n = R1;
+    B = Tam/2;
+    n = Tam;
     auto start2 = chrono::steady_clock::now();
-    for (ii = 0; ii < n; ii += B) 
+    for (ii = 0; ii < n; ii += B)
     {
         for (jj = 0; jj < n; jj += B)
         {
@@ -55,7 +46,7 @@ void multSeisBloques(vector<vector<int>> mat1, vector<vector<int>> mat2)
             {
                 for (i = ii; i < ii + B; i++)
                 {
-                    for (j = jj; j < jj + B; j++) 
+                    for (j = jj; j < jj + B; j++)
                     {
                         for (k = kk; k < kk + B; k++)
                         {
@@ -67,28 +58,20 @@ void multSeisBloques(vector<vector<int>> mat1, vector<vector<int>> mat2)
         }
     }
     auto end2 = chrono::steady_clock::now();
+    cout << "Seis Bloques" << endl;
     cout << "Elapsed time in nanoseconds: "
         << chrono::duration_cast<chrono::nanoseconds>(end2 - start2).count()
         << " ns" << endl;
-    cout << "Seis Bloques" << endl;
-    for (int i = 0; i < R1; i++)
-    {
-        for (int j = 0; j < C1; j++)
-        {
-            cout << rslt[i][j] << "\t";
-        }
-        cout << endl;
-    }
 }
 int main()
 {
-    vector<vector<int>> mat1(R1, vector<int>(C1));
-    vector<vector<int>> mat2(R2, vector<int>(C2));
-    for (int i = 0; i < R1; i++)
-        for (int j = 0; j < C1; j++)
+    vector<vector<int>> mat1(Tam, vector<int>(Tam));
+    vector<vector<int>> mat2(Tam, vector<int>(Tam));
+    for (int i = 0; i < Tam; i++)
+        for (int j = 0; j < Tam; j++)
         {
-            mat1[i][j] = 2+i;
-            mat2[i][j] = 3+j;
+            mat1[i][j] = 2;
+            mat2[i][j] = 3;
         }
     mulMat(mat1, mat2);
     multSeisBloques(mat1, mat2);
