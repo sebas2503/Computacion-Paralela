@@ -1,0 +1,11 @@
+cd /mnt
+
+si quiero instalar: sudo apt install dfs
+
+gcc -o nombre nombre.cpp
+
+correr: ./nombre
+
+cargar carptera de Paralela
+cd /mnt/c/Users/sebas/Desktop/Cursos_2023-2/ComputacionParalela/PrimeraParte/
+ ./pth hello <number of threads>
